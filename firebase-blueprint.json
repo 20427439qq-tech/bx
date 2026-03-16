@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System users including employees and finance staff",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["employee", "finance", "admin"] },
+        "department": { "type": "string" },
+        "phone": { "type": "string" }
+      },
+      "required": ["uid", "name", "role"]
+    },
+    "Reimbursement": {
+      "title": "Reimbursement",
+      "description": "Main reimbursement request",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "department": { "type": "string" },
+        "reason": { "type": "string" },
+        "category": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["draft", "pending", "approved", "rejected", "returned"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "auditOpinion": { "type": "string" },
+        "auditorId": { "type": "string" },
+        "auditorName": { "type": "string" }
+      },
+      "required": ["userId", "userName", "totalAmount", "status"]
+    },
+    "ReimbursementItem": {
+      "title": "Reimbursement Item",
+      "description": "Individual receipt/invoice details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reimbursementId": { "type": "string" },
+        "type": { "type": "string" },
+        "date": { "type": "string" },
+        "merchant": { "type": "string" },
+        "amount": { "type": "number" },
+        "tax": { "type": "number" },
+        "total": { "type": "number" },
+        "category": { "type": "string" },
+        "ocrStatus": { "type": "string" },
+        "image": { "type": "string" },
+        "remark": { "type": "string" }
+      },
+      "required": ["reimbursementId", "amount", "total"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/reimbursements/{reimbursementId}": {
+      "schema": "Reimbursement",
+      "description": "Reimbursement requests"
+    },
+    "/reimbursements/{reimbursementId}/items/{itemId}": {
+      "schema": "ReimbursementItem",
+      "description": "Receipt items for a reimbursement"
+    }
+  }
+}
