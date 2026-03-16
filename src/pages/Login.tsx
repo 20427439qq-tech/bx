@@ -18,6 +18,21 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleQuickLogin = async () => {
+    // For demo/testing purposes in the preview environment
+    // In a real app, this would be a full email/password flow
+    try {
+      // We'll use a simple sign-in or just navigate if we want to mock it, 
+      // but the user wants to "login". 
+      // Let's use anonymous login as a fallback if Google fails.
+      const { signInAnonymously } = await import('firebase/auth');
+      await signInAnonymously(auth);
+      navigate('/');
+    } catch (error) {
+      console.error('Quick login failed:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <motion.div 
@@ -46,16 +61,16 @@ const Login: React.FC = () => {
               <div className="w-full border-t border-slate-100"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-slate-400">内部系统</span>
+              <span className="bg-white px-2 text-slate-400">快速访问</span>
             </div>
           </div>
 
           <button
-            onClick={() => navigate('/')}
+            onClick={handleQuickLogin}
             className="w-full flex items-center justify-center gap-3 bg-indigo-600 text-white font-semibold py-4 px-6 rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 active:scale-95"
           >
             <LogIn size={20} />
-            立即进入
+            游客/测试登录
           </button>
         </div>
         

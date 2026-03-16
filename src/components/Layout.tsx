@@ -37,10 +37,10 @@ const Layout: React.FC = () => {
   const isFinance = profile?.role === 'finance' || profile?.role === 'admin';
 
   const navItems = isFinance ? [
-    { path: '/finance', icon: LayoutDashboard, label: '仪表盘' },
-    { path: '/finance/audit', icon: CheckSquare, label: '待审核' },
+    { path: '/finance', icon: LayoutDashboard, label: '管理仪表盘' },
+    { path: '/', icon: Home, label: '员工首页' },
+    { path: '/finance/audit', icon: CheckSquare, label: '待审核单据' },
     { path: '/finance/stats', icon: PieChart, label: '统计汇总' },
-    { path: '/finance/settings', icon: Settings, label: '设置' },
   ] : [
     { path: '/', icon: Home, label: '首页' },
     { path: '/new', icon: PlusSquare, label: '新建报销' },

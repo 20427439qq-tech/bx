@@ -27,7 +27,10 @@ import {
 import { format, startOfMonth, endOfMonth } from 'date-fns';
 import { motion } from 'framer-motion';
 
+import { useNavigate } from 'react-router-dom';
+
 const FinanceDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [requests, setRequests] = useState<Reimbursement[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -79,9 +82,18 @@ const FinanceDashboard: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <section>
-        <h2 className="text-2xl font-bold text-slate-900">财务管理概览</h2>
-        <p className="text-slate-500">实时监控企业报销动态与资金流向</p>
+      <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900">财务管理概览</h2>
+          <p className="text-slate-500">实时监控企业报销动态与资金流向</p>
+        </div>
+        <button 
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 transition-colors text-sm font-medium shadow-sm"
+        >
+          <ArrowUpRight size={16} />
+          返回员工首页
+        </button>
       </section>
 
       {/* Stats Grid */}

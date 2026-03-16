@@ -29,12 +29,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setProfile(docSnap.data() as UserProfile);
         } else {
           // Create default profile if not exists
+          const isDefaultAdmin = user.email === '20427439qq@gmail.com';
           const newProfile: UserProfile = {
             uid: user.uid,
-            name: user.displayName || '新用户',
+            name: user.isAnonymous ? '测试用户' : (user.displayName || '新用户'),
             email: user.email || '',
-            role: user.email === '20427439qq@gmail.com' ? 'admin' : 'employee',
-            department: '未分配',
+            role: (isDefaultAdmin || user.isAnonymous) ? 'admin' : 'employee',
+            department: user.isAnonymous ? '财务部' : '未分配',
           };
           await setDoc(docRef, newProfile);
           setProfile(newProfile);
